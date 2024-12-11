@@ -31,6 +31,7 @@ app.use("/users", UserController);
 
 app.get("/private", authMiddleware, (req, res) => {
   console.log("Get user with authMiddleware: ", req.user);
+
   res.send("Private route");
 });
 

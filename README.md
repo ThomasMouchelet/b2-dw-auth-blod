@@ -10,8 +10,47 @@
 # TODO 2 (Relation)
 
 - Create into db relation use > post (OneToMany)
-- add user ralation to insert new post
-- Check owner of post when delete or update
+- Assign the user to the post during each insertion.
+- Check owner of post when delete or update.
+
+# TODO 3 FRONT
+
+### L'authentification
+
+```
+  const response = await fetch('https://api.example.com/auth/signin', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ username, password }),
+  });
+
+  if (!response.ok) {
+    throw new Error('Échec de la connexion');
+  }
+
+const data = await response.json();
+
+// Stocker le token dans localStorage
+localStorage.setItem('token', data.token);
+```
+
+### Autorization
+
+```
+// Récupérer le token
+const token = localStorage.getItem('token');
+
+const response = await fetch('https://api.example.com/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`, // Ajouter le token à l'en-tête Authorization
+      },
+      body: JSON.stringify(postData), // Les données du post
+    });
+```
 
 # Back (API)
 
@@ -69,3 +108,7 @@
   - post/
   - config/
     - db.ts
+
+```
+
+```
